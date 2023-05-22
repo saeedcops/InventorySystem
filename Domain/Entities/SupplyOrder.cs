@@ -17,5 +17,6 @@ namespace Domain.Entities
         public Vendor Vendor { get; set; }
         public byte[]? Document { get; set; }
         public List<Item>? SupplyOrderItems { get; set; }
+        public List<Part>? SupplyOrderParts { get; set; }
     }
 }

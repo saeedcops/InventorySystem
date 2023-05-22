@@ -2,17 +2,12 @@
 using Domain.Entities;
 using Domain.Enum;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.Items.Commands
+namespace Application.Parts.Commands
 {
-   public record CreateItemCommand : IRequest<Item>
+   public record CreatePartCommand : IRequest<Part>
     {
-        public string? SerialNumber { get; set; }
+        public string PartNumber { get; set; }
         public string? OracleCode { get; set; }
         public string? WarehouseCode { get; set; }
         public string Name { get; set; }
@@ -24,18 +19,18 @@ namespace Application.Items.Commands
         public int VendorId { get; set; }
     }
 
-    public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
+    public class CreatePartCommandHandler : IRequestHandler<CreatePartCommand, Part>
     {
         private readonly IApplicationDbContext _context;
 
-        public CreateItemCommandHandler(IApplicationDbContext context)
+        public CreatePartCommandHandler(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Item> Handle(CreateItemCommand request, CancellationToken cancellationToken)
+        public async Task<Part> Handle(CreatePartCommand request, CancellationToken cancellationToken)
         {
-            var entity = new Item
+            var entity = new Part
             {
                 Name = request.Name,
                 Brand = _context.Brands.FirstOrDefault(b => b.Id == request.BrandId),
@@ -44,11 +39,9 @@ namespace Application.Items.Commands
                 WarehouseId = request.WarehouseId,
                 Vendor = _context.Vendors.FirstOrDefault(b => b.Id == request.VendorId),
                 VendorId = request.VendorId,
-                ItemType = _context.ItemTypes.FirstOrDefault(b => b.Id == request.ItemTypeId),
-                ItemTypeId = request.ItemTypeId,
                 Description = request.Description,
                 Model = request.Model,
-                SerialNumber = request.SerialNumber,
+                PartNumber = request.PartNumber,
                 WarehouseCode = request.WarehouseCode,
                 OracleCode = request.OracleCode,
 
@@ -57,7 +50,7 @@ namespace Application.Items.Commands
 
             //entity.AddDomainEvent(new TodoItemCreatedEvent(entity));
 
-            _context.Items.Add(entity);
+            _context.Parts.Add(entity);
 
             await _context.SaveChangesAsync(cancellationToken);
 

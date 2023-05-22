@@ -34,7 +34,6 @@ namespace Infrastructure.Identity
         }
 
 
-
         public async Task<TokenResponse> LoginAsync(TokenRequest loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);

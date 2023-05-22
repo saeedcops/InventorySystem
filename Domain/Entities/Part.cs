@@ -9,18 +9,16 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Item :BaseAuditableEntity
+    public class Part :BaseAuditableEntity
     {
         [Required]
-        public string SerialNumber { get; set; }
+        public string PartNumber { get; set; }
         public string? OracleCode { get; set; }
         public string? WarehouseCode { get; set; }
-        public ItemStatus ItemStatus { get; set; } = ItemStatus.stored;
+        public ItemStatus PartStatus { get; set; } = ItemStatus.stored;
         public string Name { get; set; }
-        public string Model { get; set; }
+        public string? Model { get; set; }
         public string? Description { get; set; }
-        public int ItemTypeId { get; set; }
-        public ItemType ItemType { get; set; }
         public int BrandId { get; set; }
         public Brand Brand { get; set; }
         public int WarehouseId { get; set; }

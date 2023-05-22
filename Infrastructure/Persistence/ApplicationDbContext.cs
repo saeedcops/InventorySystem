@@ -29,6 +29,7 @@ namespace Infrastructure.Persistence
         }
 
         public DbSet<Brand> Brands => Set<Brand>();
+        public DbSet<Part> Parts => Set<Part>();
 
         public DbSet<Customer> Customers => Set<Customer>();
 

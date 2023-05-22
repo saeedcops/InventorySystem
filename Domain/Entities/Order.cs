@@ -19,6 +19,7 @@ namespace Domain.Entities
         public int EngneerId { get; set; }
         public Engineer Engineer { get; set; }
         public byte[] Document { get; set; }
-        public List<Item> OrderItems { get; set; }
+        public List<Item>? OrderItems { get; set; }
+        public List<Part>? OrderParts { get; set; }
     }
 }

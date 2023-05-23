@@ -17,7 +17,8 @@ namespace Application.Orders.Commands
         public int CustomerId { get; set; }
         public int EngineerId { get; set; }
         public int OrderType { get; set; }
-        public List<string>? OrderItemSerialNumber { get; set; }
+        public List<string>? OrderItemsPartNumber { get; set; }
+        public List<string>? OrderPartsPartNumber { get; set; }
         public byte[]? Document { get; set; }
     }
 
@@ -33,21 +34,26 @@ namespace Application.Orders.Commands
         public async Task<Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var items = new List<Item>();
-            foreach (var serial in request.OrderItemSerialNumber)
+            var Parts = new List<Part>();
+            foreach (var serial in request.OrderItemsPartNumber)
             {
-                 items.Add(await _context.Items.FirstOrDefaultAsync(x => x.SerialNumber.Equals(serial)));
+                 items.Add(await _context.Items.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial)));
             }
-          
+            foreach (var serial in request.OrderPartsPartNumber)
+            {
+                Parts.Add(await _context.Parts.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial)));
+            }
+
             var entity = new Order
             {
-                Customer = _context.Customers.FirstOrDefault(b => b.Id == request.CustomerId),
+               // Customer = _context.Customers.FirstOrDefault(b => b.Id == request.CustomerId),
                 CustomerId = request.CustomerId,
-                Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId),
-                EngneerId = request.EngineerId,
+               // Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId),
+                EngineerId = request.EngineerId,
                 OrderType =(OrderType) request.OrderType,
                 Document = request.Document,
                 OrderItems = items,
-
+                OrderParts = Parts,
             };
 
             entity = _context.Orders.Add(entity).Entity;

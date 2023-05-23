@@ -9,6 +9,11 @@ namespace API.Controllers
     
     public class ItemsController: ApiControllerBase
     {
+        [HttpGet]
+        public async Task<ActionResult<List<Item>>> Get()
+        {
+            return await Mediator.Send(new GetItemsQuery ());
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> Get(int id)
@@ -21,6 +26,13 @@ namespace API.Controllers
         public async Task<ActionResult<Item>> Create([FromForm] CreateItemCommand command)
         {
           
+            return await Mediator.Send(command);
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<Item>> Update([FromForm] UpdateItemsCommand command)
+        {
+
             return await Mediator.Send(command);
         }
     }

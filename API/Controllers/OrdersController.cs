@@ -2,8 +2,6 @@
 using Application.Brands.Queries;
 using Application.Orders.Commands;
 using Application.Orders.Queries;
-using Application.Vendors.Commands;
-using Application.Vendors.Queries;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +21,13 @@ namespace API.Controllers
         public async Task<ActionResult<Order>> Create([FromForm] CreateOrderCommand command)
         {
           
+            return await Mediator.Send(command);
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<Order>> Update([FromForm] UpdateOrderCommand command)
+        {
+
             return await Mediator.Send(command);
         }
     }

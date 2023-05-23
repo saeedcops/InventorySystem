@@ -14,8 +14,18 @@ namespace Application.Items.Commands
    public record UpdateItemsCommand : IRequest<Item>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? PartNumber { get; set; }
+        public string? SerialNumber { get; set; }
+        public string? OracleCode { get; set; }
+        public string? Model { get; set; }
         public string? Description { get; set; }
+        public int ItemTypeId { get; set; }
+        public int BrandId { get; set; }
+        public int WarehouseId { get; set; }
+        public int CustomerId { get; set; }
+        public int EnginnerId { get; set; }
+        public byte[]? Image { get; set; }
+
     }
 
     public class UpdateItemsCommandHandler : IRequestHandler<UpdateItemsCommand, Item>
@@ -33,9 +43,21 @@ namespace Application.Items.Commands
            var entity=await _context.Items.FirstOrDefaultAsync(b=> b.Id == request.Id);
             if (entity == null)
                 throw new NotFoundException($"No Items with {request.Id}");
-            entity.Name = request.Name;
-            entity.Description = request.Description;
-             _context.Items.Update(entity);
+
+            entity.PartNumber = request.PartNumber != null ? request.PartNumber : entity.PartNumber;
+            entity.SerialNumber = request.SerialNumber != null ? request.SerialNumber : entity.SerialNumber;
+            entity.OracleCode = request.OracleCode != null ? request.OracleCode : entity.OracleCode;
+            entity.Model = request.Model != null ? request.Model : entity.Model;
+            entity.Description = request.Description != null ? request.Description : entity.Description;
+            entity.ItemTypeId = request.ItemTypeId != 0 ? request.ItemTypeId : entity.ItemTypeId;
+            entity.BrandId = request.BrandId != 0 ? request.BrandId : entity.BrandId;
+            entity.WarehouseId = request.WarehouseId != 0 ? request.WarehouseId : entity.WarehouseId;
+            entity.CustomerId = request.CustomerId != 0 ? request.CustomerId : entity.CustomerId;
+            entity.EngneerId = request.EnginnerId != 0 ? request.EnginnerId : entity.EngneerId;
+            entity.Image = request.Image != null ? request.Image : entity.Image;
+
+
+            _context.Items.Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
             return entity;

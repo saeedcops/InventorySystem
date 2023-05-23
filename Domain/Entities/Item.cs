@@ -12,11 +12,10 @@ namespace Domain.Entities
     public class Item :BaseAuditableEntity
     {
         [Required]
-        public string SerialNumber { get; set; }
+        public string PartNumber { get; set; }
+        public string? SerialNumber { get; set; }
         public string? OracleCode { get; set; }
-        public string? WarehouseCode { get; set; }
         public ItemStatus ItemStatus { get; set; } = ItemStatus.stored;
-        public string Name { get; set; }
         public string Model { get; set; }
         public string? Description { get; set; }
         public int ItemTypeId { get; set; }
@@ -25,8 +24,6 @@ namespace Domain.Entities
         public Brand Brand { get; set; }
         public int WarehouseId { get; set; }
         public Warehouse Warehouse { get; set; }
-        public int VendorId { get; set; }
-        public Vendor Vendor { get; set; }
         public int? CustomerId { get; set; }
         public Customer? Customer { get; set; }
         public int? EngneerId { get; set; }

@@ -2,21 +2,20 @@
 using Domain.Entities;
 using Domain.Enum;
 using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Parts.Commands
 {
    public record CreatePartCommand : IRequest<Part>
     {
+        [Required]
         public string PartNumber { get; set; }
         public string? OracleCode { get; set; }
-        public string? WarehouseCode { get; set; }
-        public string Name { get; set; }
         public string Model { get; set; }
         public string? Description { get; set; }
-        public int ItemTypeId { get; set; }
+        public byte[]? Image { get; set; }
         public int BrandId { get; set; }
         public int WarehouseId { get; set; }
-        public int VendorId { get; set; }
     }
 
     public class CreatePartCommandHandler : IRequestHandler<CreatePartCommand, Part>
@@ -32,17 +31,14 @@ namespace Application.Parts.Commands
         {
             var entity = new Part
             {
-                Name = request.Name,
-                Brand = _context.Brands.FirstOrDefault(b => b.Id == request.BrandId),
+               // Brand = _context.Brands.FirstOrDefault(b => b.Id == request.BrandId),
                 BrandId = request.BrandId,
-                Warehouse = _context.Warehouses.FirstOrDefault(b => b.Id == request.WarehouseId),
+                //Warehouse = _context.Warehouses.FirstOrDefault(b => b.Id == request.WarehouseId),
+                Image = request.Image,
                 WarehouseId = request.WarehouseId,
-                Vendor = _context.Vendors.FirstOrDefault(b => b.Id == request.VendorId),
-                VendorId = request.VendorId,
                 Description = request.Description,
                 Model = request.Model,
                 PartNumber = request.PartNumber,
-                WarehouseCode = request.WarehouseCode,
                 OracleCode = request.OracleCode,
 
 

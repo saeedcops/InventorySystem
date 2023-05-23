@@ -18,7 +18,6 @@ namespace Application.Common.Interfaces
         DbSet<ItemType> ItemTypes { get; }
         DbSet<Order> Orders { get; }
         DbSet<SupplyOrder> SupplyOrders { get; }
-        DbSet<Vendor> Vendors { get; }
         DbSet<Warehouse> Warehouses { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

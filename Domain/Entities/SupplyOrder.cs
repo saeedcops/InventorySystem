@@ -11,10 +11,9 @@ namespace Domain.Entities
 
      public class SupplyOrder : BaseAuditableEntity
     {
-  
+
+        [Required]
         public string Name { get; set; }
-        public int VendorId { get; set; }
-        public Vendor Vendor { get; set; }
         public byte[]? Document { get; set; }
         public List<Item>? SupplyOrderItems { get; set; }
         public List<Part>? SupplyOrderParts { get; set; }

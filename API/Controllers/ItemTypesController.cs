@@ -23,5 +23,12 @@ namespace API.Controllers
           
             return await Mediator.Send(command);
         }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<ItemType>> Update([FromForm] UpdateItemTypesCommand command)
+        {
+
+            return await Mediator.Send(command);
+        }
     }
 }

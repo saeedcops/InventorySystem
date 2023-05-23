@@ -43,8 +43,6 @@ namespace Infrastructure.Persistence
 
         public DbSet<SupplyOrder> SupplyOrders => Set<SupplyOrder>();
 
-        public DbSet<Vendor> Vendors => Set<Vendor>();
-
         public DbSet<Warehouse> Warehouses => Set<Warehouse>();
 
         protected override void OnModelCreating(ModelBuilder builder)

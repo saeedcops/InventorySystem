@@ -29,8 +29,7 @@ namespace Application.SupplyOrders.Queries
         {
             return await _context.SupplyOrders
                 .Include(o => o.SupplyOrderItems)
-                
-                .Include(o => o.Vendor).ToListAsync();
+                .Include(o=>o.SupplyOrderParts).ToListAsync();
         }
     }
 }

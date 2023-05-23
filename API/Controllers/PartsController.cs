@@ -18,11 +18,23 @@ namespace API.Controllers
             return await Mediator.Send(new GetPartQuery { Id = id });
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Part>>> Get()
+        {
+            return await Mediator.Send(new GetPartsQuery() );
+        }
 
         [HttpPost]
         public async Task<ActionResult<Part>> Create([FromForm] CreatePartCommand command)
         {
           
+            return await Mediator.Send(command);
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<Part>> Update([FromForm] UpdatePartCommand command)
+        {
+
             return await Mediator.Send(command);
         }
     }

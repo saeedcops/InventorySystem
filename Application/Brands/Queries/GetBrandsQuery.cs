@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Brands.Queries
 {
-    [Authorize(Roles ="Administrator")]
+   // [Authorize(Roles ="Administrator")]
     public record GetBrandsQuery : IRequest<List<Brand>>
     {
     }
@@ -20,12 +20,10 @@ namespace Application.Brands.Queries
     public class GetItemQueryHandler : IRequestHandler<GetBrandsQuery, List<Brand>>
     {
         private readonly IApplicationDbContext _context;
-        //  private readonly IMapper _mapper;
 
         public GetItemQueryHandler(IApplicationDbContext context)
         {
             _context = context;
-            // _mapper = mapper;
         }
 
         public async Task<List<Brand>> Handle(GetBrandsQuery request, CancellationToken cancellationToken)

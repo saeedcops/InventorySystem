@@ -29,6 +29,7 @@ namespace Application.Orders.Queries
         {
             return await _context.Orders
                 .Include(o=>o.OrderItems)
+                .Include(o=>o.OrderParts)
                 .Include(o=>o.Customer)
                 .Include(o=>o.Engineer).ToListAsync();
         }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Items.Queries
 {
-    [Authorize(Roles ="AddItem")]
+  //  [Authorize(Roles ="AddItem")]
     public record GetItemQuery : IRequest<Item>
     {
         public int Id { get; init; }
@@ -25,7 +25,11 @@ namespace Application.Items.Queries
 
         public async Task<Item> Handle(GetItemQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Items.FirstOrDefaultAsync(i => i.Id == request.Id);
+            return await _context.Items
+                .Include(i => i.Brand)
+                .Include(i => i.Customer)
+                .Include(i => i.Engineer)
+                .Include(i => i.Warehouse).FirstOrDefaultAsync(i => i.Id == request.Id);
         }
     }
 }

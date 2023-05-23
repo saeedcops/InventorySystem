@@ -9,9 +9,9 @@ namespace Application.SupplyOrders.Commands
 {
   public record CreateSupplyOrderCommand : IRequest<SupplyOrder>
     {
-        public int VendorId { get; set; }
         public string Name { get; set; }
         public List<ItemDto>? SupplyOrderItems { get; set; }
+        public List<PartDto>? SupplyOrderParts { get; set; }
         public byte[]? Document { get; set; }
     }
 
@@ -27,36 +27,57 @@ namespace Application.SupplyOrders.Commands
         public async Task<SupplyOrder> Handle(CreateSupplyOrderCommand request, CancellationToken cancellationToken)
         {
             var items = new List<Item>();
-            foreach (var itemDto in request.SupplyOrderItems)
-            {
-                items.Add(new Item
+            if(request.SupplyOrderItems != null)
+                foreach (var itemDto in request.SupplyOrderItems)
                 {
-                    Name = itemDto.Name,
-                    VendorId = itemDto.VendorId,
-                    Vendor =await _context.Vendors.FirstOrDefaultAsync(v => v.Id == itemDto.VendorId),
-                    Description = itemDto.Description,
-                    Image = itemDto.Image,
-                    ItemTypeId = itemDto.ItemTypeId,
-                    ItemType = await _context.ItemTypes.FirstOrDefaultAsync(v => v.Id == itemDto.ItemTypeId),
-                    Model = itemDto.Model,
-                    OracleCode = itemDto.OracleCode,
-                    SerialNumber = itemDto.SerialNumber,
-                    WarehouseCode = itemDto.WarehouseCode,
-                    WarehouseId = itemDto.WarehouseId,
-                    Warehouse = await _context.Warehouses.FirstOrDefaultAsync(v => v.Id == itemDto.WarehouseId),
-                    BrandId = itemDto.BrandId,
-                    Brand = await _context.Brands.FirstOrDefaultAsync(v => v.Id == itemDto.BrandId),
+                    var item= new Item
+                    {
+                        Description = itemDto.Description,
+                        Image = itemDto.Image,
+                        ItemTypeId = itemDto.ItemTypeId,
+                       // ItemType = await _context.ItemTypes.FirstOrDefaultAsync(v => v.Id == itemDto.ItemTypeId),
+                        Model = itemDto.Model,
+                        OracleCode = itemDto.OracleCode,
+                        PartNumber = itemDto.PartNumber,
+                        WarehouseId = itemDto.WarehouseId,
+                       // Warehouse = await _context.Warehouses.FirstOrDefaultAsync(v => v.Id == itemDto.WarehouseId),
+                        BrandId = itemDto.BrandId,
+                        //Brand = await _context.Brands.FirstOrDefaultAsync(v => v.Id == itemDto.BrandId),
 
-                });
-            }
+                    };
+                    await _context.Items.AddAsync(item);
+                    await _context.SaveChangesAsync(cancellationToken);
+                    items.Add(item);
+                }
+            var parts = new List<Part>();
+            if (request.SupplyOrderParts != null)
+                foreach (var itemDto in request.SupplyOrderParts)
+                {
+                    var part=new Part
+                    {
+                        Description = itemDto.Description,
+                        Image = itemDto.Image,
+                        // ItemType = await _context.ItemTypes.FirstOrDefaultAsync(v => v.Id == itemDto.ItemTypeId),
+                        Model = itemDto.Model,
+                        OracleCode = itemDto.OracleCode,
+                        PartNumber = itemDto.PartNumber,
+                        WarehouseId = itemDto.WarehouseId,
+                        // Warehouse = await _context.Warehouses.FirstOrDefaultAsync(v => v.Id == itemDto.WarehouseId),
+                        BrandId = itemDto.BrandId,
+                        //Brand = await _context.Brands.FirstOrDefaultAsync(v => v.Id == itemDto.BrandId),
+
+                    };
+                    await _context.Parts.AddAsync(part);
+                    await _context.SaveChangesAsync(cancellationToken);
+                    parts.Add(part);
+                }
 
             var entity = new SupplyOrder
             {
-                Vendor =await _context.Vendors.FirstOrDefaultAsync(b => b.Id == request.VendorId),
-                VendorId = request.VendorId,
                 Name = request.Name,
                 Document = request.Document,
                 SupplyOrderItems = items,
+                SupplyOrderParts = parts
 
             };
 

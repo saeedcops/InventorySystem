@@ -28,9 +28,10 @@ namespace Application.Warehouses.Commands
            var entity=await _context.Warehouses.FirstOrDefaultAsync(b=> b.Id == request.Id);
             if (entity == null)
                 throw new NotFoundException($"No Warehouse with {request.Id}");
-            entity.Name = request.Name;
-            entity.Description = request.Description;
-             _context.Warehouses.Update(entity);
+
+            entity.Name = request.Name != null ? request.Name : entity.Name;
+            entity.Description = request.Description != null ? request.Description : entity.Description;
+            _context.Warehouses.Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
             return entity;

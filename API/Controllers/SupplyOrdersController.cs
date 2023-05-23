@@ -2,8 +2,6 @@
 using Application.Brands.Queries;
 using Application.SupplyOrders.Commands;
 using Application.SupplyOrders.Queries;
-using Application.Vendors.Commands;
-using Application.Vendors.Queries;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +21,13 @@ namespace API.Controllers
         public async Task<ActionResult<SupplyOrder>> Create([FromForm] CreateSupplyOrderCommand command)
         {
           
+            return await Mediator.Send(command);
+        }
+
+        [HttpPost("Update")]
+        public async Task<ActionResult<SupplyOrder>> Update([FromForm] UpdateSupplyOrdersCommand command)
+        {
+
             return await Mediator.Send(command);
         }
     }

@@ -14,8 +14,11 @@ namespace Application.Engineers.Commands
    public record UpdateEngineersCommand : IRequest<Engineer>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string? Description { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        public string? Title { get; set; }
+        public string? Address { get; set; }
     }
 
     public class UpdateEngineersCommandHandler : IRequestHandler<UpdateEngineersCommand, Engineer>
@@ -33,9 +36,14 @@ namespace Application.Engineers.Commands
            var entity=await _context.Engineers.FirstOrDefaultAsync(b=> b.Id == request.Id);
             if (entity == null)
                 throw new NotFoundException($"No Brands with {request.Id}");
-            entity.Name = request.Name;
-            //entity.Description = request.Description;
-             _context.Engineers.Update(entity);
+
+            entity.Name = request.Name != null ? request.Name : entity.Name;
+            entity.Phone = request.Phone != null ? request.Phone : entity.Phone;
+            entity.Email = request.Email != null ? request.Email : entity.Email;
+            entity.Address = request.Address != null ? request.Address : entity.Address;
+            entity.Title = request.Title != null ? request.Title : entity.Title;
+
+            _context.Engineers.Update(entity);
             await _context.SaveChangesAsync(cancellationToken);
 
             return entity;

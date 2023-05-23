@@ -7,29 +7,30 @@ using Microsoft.EntityFrameworkCore;
 namespace Application.Parts.Queries
 {
    
-    public record GetPartQuery : IRequest<Part>
+    public record GetPartsQuery : IRequest<List< Part>>
     {
         public int Id { get; init; }
     }
 
-    public class GetPartQueryHandler : IRequestHandler<GetPartQuery, Part>
+    public class GetPartsQueryHandler : IRequestHandler<GetPartsQuery, List<Part>>
     {
         private readonly IApplicationDbContext _context;
       //  private readonly IMapper _mapper;
 
-        public GetPartQueryHandler(IApplicationDbContext context)
+        public GetPartsQueryHandler(IApplicationDbContext context)
         {
             _context = context;
            // _mapper = mapper;
         }
 
-        public async Task<Part> Handle(GetPartQuery request, CancellationToken cancellationToken)
+        public async Task<List<Part>> Handle(GetPartsQuery request, CancellationToken cancellationToken)
         {
             return await _context.Parts
                 .Include(p => p.Brand)
                 .Include(p => p.Engineer)
                 .Include(p => p.Customer)
-                .Include(p => p.Warehouse).FirstOrDefaultAsync(i => i.Id == request.Id);
+                .Include(p => p.Warehouse)
+                .ToListAsync();
         }
     }
 }

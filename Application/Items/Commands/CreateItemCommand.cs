@@ -12,16 +12,16 @@ namespace Application.Items.Commands
 {
    public record CreateItemCommand : IRequest<Item>
     {
-        public string? SerialNumber { get; set; }
+        public string PartNumber { get; set; }
+        public string SerialNumber { get; set; }
         public string? OracleCode { get; set; }
-        public string? WarehouseCode { get; set; }
-        public string Name { get; set; }
         public string Model { get; set; }
         public string? Description { get; set; }
         public int ItemTypeId { get; set; }
         public int BrandId { get; set; }
         public int WarehouseId { get; set; }
-        public int VendorId { get; set; }
+        public byte[]? Image { get; set; }
+
     }
 
     public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
@@ -37,21 +37,18 @@ namespace Application.Items.Commands
         {
             var entity = new Item
             {
-                Name = request.Name,
                 Brand = _context.Brands.FirstOrDefault(b => b.Id == request.BrandId),
                 BrandId = request.BrandId,
                 Warehouse = _context.Warehouses.FirstOrDefault(b => b.Id == request.WarehouseId),
                 WarehouseId = request.WarehouseId,
-                Vendor = _context.Vendors.FirstOrDefault(b => b.Id == request.VendorId),
-                VendorId = request.VendorId,
                 ItemType = _context.ItemTypes.FirstOrDefault(b => b.Id == request.ItemTypeId),
                 ItemTypeId = request.ItemTypeId,
                 Description = request.Description,
                 Model = request.Model,
                 SerialNumber = request.SerialNumber,
-                WarehouseCode = request.WarehouseCode,
+                PartNumber = request.PartNumber,
                 OracleCode = request.OracleCode,
-
+                Image = request.Image,
 
             };
 

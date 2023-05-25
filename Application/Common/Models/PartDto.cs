@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Common.Mapping;
+using Domain.Entities;
 using Domain.Enum;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Models
 {
-    public class PartDto
+    public class PartDto : IMapFrom<Part>
     {
-        [Required]
         public string PartNumber { get; set; }
-        public string? OracleCode { get; set; }
+        public string OracleCode { get; set; }
+        public ItemStatus PartStatus { get; set; }
         public string Model { get; set; }
-        public string? Description { get; set; }
-        public int BrandId { get; set; }
-        public int WarehouseId { get; set; }
-        public int? CustomerId { get; set; }
-        public int? EngneerId { get; set; }
-        public byte[]? Image { get; set; }
+        public string Description { get; set; }
+        public string Brand { get; set; }
+        public string Warehouse { get; set; }
+        public string Customer { get; set; }
+        public string Engineer { get; set; }
+        public byte[] Image { get; set; }
     }
 }

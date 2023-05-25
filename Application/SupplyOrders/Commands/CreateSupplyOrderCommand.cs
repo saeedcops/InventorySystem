@@ -4,14 +4,15 @@ using Domain.Entities;
 using Domain.Enum;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Application.SupplyOrders.Commands
 {
   public record CreateSupplyOrderCommand : IRequest<SupplyOrder>
     {
         public string Name { get; set; }
-        public List<ItemDto>? SupplyOrderItems { get; set; }
-        public List<PartDto>? SupplyOrderParts { get; set; }
+        public List<string>? OrderItemsPartNumber { get; set; }
+        public List<string>? OrderPartsPartNumber { get; set; }
         public byte[]? Document { get; set; }
     }
 
@@ -26,61 +27,27 @@ namespace Application.SupplyOrders.Commands
 
         public async Task<SupplyOrder> Handle(CreateSupplyOrderCommand request, CancellationToken cancellationToken)
         {
-            var items = new List<Item>();
-            if(request.SupplyOrderItems != null)
-                foreach (var itemDto in request.SupplyOrderItems)
-                {
-                    var item= new Item
-                    {
-                        Description = itemDto.Description,
-                        Image = itemDto.Image,
-                        ItemTypeId = itemDto.ItemTypeId,
-                       // ItemType = await _context.ItemTypes.FirstOrDefaultAsync(v => v.Id == itemDto.ItemTypeId),
-                        Model = itemDto.Model,
-                        OracleCode = itemDto.OracleCode,
-                        PartNumber = itemDto.PartNumber,
-                        WarehouseId = itemDto.WarehouseId,
-                       // Warehouse = await _context.Warehouses.FirstOrDefaultAsync(v => v.Id == itemDto.WarehouseId),
-                        BrandId = itemDto.BrandId,
-                        //Brand = await _context.Brands.FirstOrDefaultAsync(v => v.Id == itemDto.BrandId),
-
-                    };
-                    await _context.Items.AddAsync(item);
-                    await _context.SaveChangesAsync(cancellationToken);
-                    items.Add(item);
-                }
-            var parts = new List<Part>();
-            if (request.SupplyOrderParts != null)
-                foreach (var itemDto in request.SupplyOrderParts)
-                {
-                    var part=new Part
-                    {
-                        Description = itemDto.Description,
-                        Image = itemDto.Image,
-                        // ItemType = await _context.ItemTypes.FirstOrDefaultAsync(v => v.Id == itemDto.ItemTypeId),
-                        Model = itemDto.Model,
-                        OracleCode = itemDto.OracleCode,
-                        PartNumber = itemDto.PartNumber,
-                        WarehouseId = itemDto.WarehouseId,
-                        // Warehouse = await _context.Warehouses.FirstOrDefaultAsync(v => v.Id == itemDto.WarehouseId),
-                        BrandId = itemDto.BrandId,
-                        //Brand = await _context.Brands.FirstOrDefaultAsync(v => v.Id == itemDto.BrandId),
-
-                    };
-                    await _context.Parts.AddAsync(part);
-                    await _context.SaveChangesAsync(cancellationToken);
-                    parts.Add(part);
-                }
-
             var entity = new SupplyOrder
             {
                 Name = request.Name,
                 Document = request.Document,
-                SupplyOrderItems = items,
-                SupplyOrderParts = parts
 
             };
+            var items = new List<Item>();
+            var Parts = new List<Part>();
+            if (request.OrderItemsPartNumber != null)
+            {
+                foreach (var serial in request.OrderItemsPartNumber)
+                    items.Add(await _context.Items.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial)));
+                entity.SupplyOrderItems = items;
+            }
+            if (request.OrderPartsPartNumber != null)
+            {
+                foreach (var serial in request.OrderPartsPartNumber)
+                    Parts.Add(await _context.Parts.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial)));
 
+                entity.SupplyOrderParts = Parts;
+            }
 
             entity = _context.SupplyOrders.Add(entity).Entity;
 

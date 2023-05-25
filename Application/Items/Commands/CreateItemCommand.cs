@@ -4,6 +4,7 @@ using Domain.Enum;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace Application.Items.Commands
 {
    public record CreateItemCommand : IRequest<Item>
     {
+        [Required]
         public string PartNumber { get; set; }
         public string SerialNumber { get; set; }
         public string? OracleCode { get; set; }

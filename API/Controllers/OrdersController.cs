@@ -1,5 +1,7 @@
 ﻿using Application.Brands.Commands;
 using Application.Brands.Queries;
+using Application.Common.Models;
+using Application.Items.Queries;
 using Application.Orders.Commands;
 using Application.Orders.Queries;
 using Domain.Entities;
@@ -11,11 +13,10 @@ namespace API.Controllers
     {
 
         [HttpGet]
-        public async Task<ActionResult<List<Order>>> Get()
+        public async Task<ActionResult<PaginatedList<OrderDto>>> GetOrdersWithPagination([FromQuery] GetOrdersWithPaginationQuery query)
         {
-            return await Mediator.Send(new GetOrdersQueries());
+            return await Mediator.Send(query);
         }
-
 
         [HttpPost]
         public async Task<ActionResult<Order>> Create([FromForm] CreateOrderCommand command)

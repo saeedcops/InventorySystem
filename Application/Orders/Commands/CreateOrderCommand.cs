@@ -35,14 +35,27 @@ namespace Application.Orders.Commands
         {
             var items = new List<Item>();
             var Parts = new List<Part>();
-            foreach (var serial in request.OrderItemsPartNumber)
-            {
-                 items.Add(await _context.Items.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial)));
-            }
-            foreach (var serial in request.OrderPartsPartNumber)
-            {
-                Parts.Add(await _context.Parts.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial)));
-            }
+            if (request.OrderItemsPartNumber != null)
+                foreach (var serial in request.OrderItemsPartNumber)
+                {
+                    var item = await _context.Items.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial));
+                    item.EngneerId = request.EngineerId;
+                    item.Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId);
+                    item.CustomerId = request.CustomerId;
+                    item.ItemStatus = (ItemStatus)request.OrderType;
+                     items.Add(item);
+                }
+
+            if(request.OrderPartsPartNumber != null)
+                foreach (var serial in request.OrderPartsPartNumber)
+                {
+                    var part = await _context.Parts.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial));
+                    part.EngneerId = request.EngineerId;
+                    part.Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId);
+                    part.CustomerId = request.CustomerId;
+                    part.PartStatus = (ItemStatus)request.OrderType;
+                    Parts.Add(part);
+                }
 
             var entity = new Order
             {

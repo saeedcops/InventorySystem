@@ -225,7 +225,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Document")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int>("EngineerId")

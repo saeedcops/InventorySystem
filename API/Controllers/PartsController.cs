@@ -1,6 +1,8 @@
-﻿using Application.Common.Security;
+﻿using Application.Common.Models;
+using Application.Common.Security;
 using Application.Items.Commands;
 using Application.Items.Queries;
+using Application.Orders.Queries;
 using Application.Parts.Commands;
 using Application.Parts.Queries;
 using Domain.Entities;
@@ -19,9 +21,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Part>>> Get()
+        public async Task<ActionResult<PaginatedList<PartDto>>> GetPartsWithPagination([FromQuery] GetPartsWithPaginationQuery query)
         {
-            return await Mediator.Send(new GetPartsQuery() );
+            return await Mediator.Send(query);
         }
 
         [HttpPost]

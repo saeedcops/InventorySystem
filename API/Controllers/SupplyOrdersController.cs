@@ -1,5 +1,7 @@
 ﻿using Application.Brands.Commands;
 using Application.Brands.Queries;
+using Application.Common.Models;
+using Application.Orders.Queries;
 using Application.SupplyOrders.Commands;
 using Application.SupplyOrders.Queries;
 using Domain.Entities;
@@ -11,9 +13,9 @@ namespace API.Controllers
     {
 
         [HttpGet]
-        public async Task<ActionResult<List<SupplyOrder>>> Get()
+        public async Task<ActionResult<PaginatedList<SupplyOrderDto>>> GetSupplyOrderWithPagination([FromQuery] GetSupplyOrderWithPaginationQuery query)
         {
-            return await Mediator.Send(new GetSupplyOrdersQuery());
+            return await Mediator.Send(query);
         }
 
 

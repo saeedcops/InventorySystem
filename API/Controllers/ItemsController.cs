@@ -1,4 +1,5 @@
-﻿using Application.Common.Security;
+﻿using Application.Common.Models;
+using Application.Common.Security;
 using Application.Items.Commands;
 using Application.Items.Queries;
 using Domain.Entities;
@@ -10,9 +11,9 @@ namespace API.Controllers
     public class ItemsController: ApiControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<Item>>> Get()
+        public async Task<ActionResult<PaginatedList<ItemDto>>> GetItemsWithPagination([FromQuery] GetItemsWithPaginationQuery query)
         {
-            return await Mediator.Send(new GetItemsQuery ());
+            return await Mediator.Send(query);
         }
 
         [HttpGet("{id}")]

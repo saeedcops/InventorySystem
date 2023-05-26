@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'parts', component: PartsComponent, data: { breadcrumb: 'Parts' } },
   { path: 'reports', component: ReportsComponent, data: { breadcrumb: 'Reports' } },
   { path: 'users', component: UsersComponent, data: { breadcrumb: 'Users' } },
-  { path: 'supply-orders', component: SupplyOrdersComponent, data: { breadcrumb: 'supply-orders' } },
+  { path: 'supply-orders', component: SupplyOrdersComponent, data: { breadcrumb: 'Supply-orders' } },
   { path: 'account', loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule), data: { breadcrumb: { skip: true } } },
 ];
 

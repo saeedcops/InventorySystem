@@ -10,11 +10,25 @@ namespace API.Controllers
     
     public class ItemsController: ApiControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<PaginatedList<ItemDto>>> GetItemsWithPagination([FromQuery] GetItemsWithPaginationQuery query)
+
+        [HttpGet("Dashboard")]
+        public async Task<ActionResult<ItemDashboardDto>> GetItemDashboard([FromQuery] GetItemDashboardQuery query)
         {
             return await Mediator.Send(query);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ItemDto>>> GetItems([FromQuery] GetItemsQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        //[HttpGet]
+        //public async Task<ActionResult<PaginatedList<ItemDto>>> GetItemsWithPagination([FromQuery] GetItemsWithPaginationQuery query)
+        //{
+        //    return await Mediator.Send(query);
+        //}
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> Get(int id)
@@ -24,7 +38,7 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Item>> Create([FromForm] CreateItemCommand command)
+        public async Task<ActionResult<Item>> Create([FromBody] CreateItemCommand command)
         {
           
             return await Mediator.Send(command);

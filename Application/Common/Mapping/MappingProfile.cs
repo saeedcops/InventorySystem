@@ -24,6 +24,8 @@ namespace Application.Common.Mapping
                 .ForMember(p => p.Customer, resp => resp.MapFrom(r => r.Customer.Name))
                 .ReverseMap();
 
+    
+
             CreateMap<Part, PartDto>()
                 .ForMember(p => p.Engineer, resp => resp.MapFrom(r => r.Engineer.Name))
                 .ForMember(p => p.Warehouse, resp => resp.MapFrom(r => r.Warehouse.Name))

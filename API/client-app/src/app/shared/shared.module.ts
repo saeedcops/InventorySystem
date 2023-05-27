@@ -12,6 +12,12 @@ import { CdkStepperModule } from '@angular/cdk/stepper';
 //import { StepperComponent } from './components/stepper/stepper.component';
 //import { BasketSummaryComponent } from './components/basket-summary/basket-summary.component';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @NgModule({
@@ -30,7 +36,13 @@ import { RouterModule } from '@angular/router';
     //BsDropdownModule.forRoot(),
     ReactiveFormsModule,
     CdkStepperModule,
-    RouterModule
+    RouterModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatDividerModule,
   ],
   exports: [
     //PaginationModule,
@@ -42,6 +54,12 @@ import { RouterModule } from '@angular/router';
     //BsDropdownModule,
     //TextInputComponent,
     CdkStepperModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatDividerModule,
     //StepperComponent,
     //BasketSummaryComponent
   ]

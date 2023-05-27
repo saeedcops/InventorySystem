@@ -7,6 +7,22 @@ export interface IItemPagination {
   hasNextPage: boolean
 }
 
+export interface IDashboardItem {
+  browwed: string
+  sold: string
+  store: string
+  total: string
+
+  degitalCheck: string
+  brabouz: string
+  panini: string
+  xerox: string
+  brands:any
+  customers:any
+  scanner: number[] 
+  parts: number[] 
+  printer: number[]
+}
 export interface IItem {
   partNumber: string
   oracleCode: string

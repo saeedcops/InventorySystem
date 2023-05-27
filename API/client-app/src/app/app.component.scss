@@ -19,17 +19,29 @@ mat-sidenav {
 }
 
 .content {
-  height: calc(100vh - 98px);
-  width:100%;
-  border-radius: 10px;
-  margin: 16px;
-  margin-left: 32px;
+
+ // height: calc(100vh - 98px);
+  //width: 90%;
+  height:85%;
+  top:10%;
+  bottom:0;
+  //left:20%;
+  //margin-top:12px;
+  //border-radius: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items:baseline;
   font-size: 2rem;
   color: lightgray;
+  position: relative;
+  left: 1%;
+  right: 2%;
+  padding: 5px;
+ // background: #002b5c;
+  color: white;
+  border-radius: 10px;
 }
+
+
 
 mat-sidenav-container {
   height: calc(100vh - 65px);

@@ -13,6 +13,7 @@
     <None Remove="client-app\src\app\core\interceptor\error.interceptor.ts" />
     <None Remove="client-app\src\app\core\interceptor\jwt.interceptor.ts" />
     <None Remove="client-app\src\app\core\interceptor\loading.interceptor.ts" />
+    <None Remove="client-app\src\app\home\home.service.ts" />
     <None Remove="client-app\src\app\items\item.service.ts" />
     <None Remove="client-app\src\app\shared\models\brand.ts" />
     <None Remove="client-app\src\app\shared\models\customer.ts" />
@@ -45,6 +46,9 @@
     <TypeScriptCompile Include="client-app\src\app\core\interceptor\error.interceptor.ts" />
     <TypeScriptCompile Include="client-app\src\app\core\interceptor\jwt.interceptor.ts" />
     <TypeScriptCompile Include="client-app\src\app\core\interceptor\loading.interceptor.ts" />
+    <TypeScriptCompile Include="client-app\src\app\home\home.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="client-app\src\app\items\item.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

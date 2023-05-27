@@ -21,16 +21,12 @@ export class ItemService {
 
   getItems() {
 
-    return this.http.get<IItemPagination>(this.baseUrl + 'items')
-      .subscribe(
-        res => {
-          console.log(res.items);
-        },
-        err => {
-          console.log(err);
-
-        }
-      );
+    return this.http.get(this.baseUrl + 'items');
   }
 
+  addItems(data: any) {
+    
+
+    return this.http.post(this.baseUrl + 'items',data);
+  }
 }

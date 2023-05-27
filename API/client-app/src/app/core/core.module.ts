@@ -12,12 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatDividerModule } from '@angular/material/divider';
+
 //TestErrorComponent, NotFoundComponent, ServerErrorComponent
 
 @NgModule({
@@ -30,12 +25,7 @@ import { MatDividerModule } from '@angular/material/divider';
     RouterModule,
     BreadcrumbModule,
     SharedModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatSidenavModule,
-    MatDividerModule,
+   
     //ToastrModule.forRoot({
     //  positionClass: 'toast-bottom-right',
     //  preventDuplicates: true

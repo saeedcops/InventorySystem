@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { ItemTypesComponent } from './item-types/item-types.component';
 import { ItemsComponent } from './items/items.component';
 import { OrdersComponent } from './orders/orders.component';
 import { PartsComponent } from './parts/parts.component';
@@ -12,6 +13,7 @@ import { UsersComponent } from './users/users.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: 'Home' } },
   { path: 'items', component: ItemsComponent, data: { breadcrumb: 'Items' } },
+  { path: 'item-types', component: ItemTypesComponent, data: { breadcrumb: 'Item-Types' } },
   { path: 'orders', component: OrdersComponent, data: { breadcrumb: 'Orders' } },
   { path: 'parts', component: PartsComponent, data: { breadcrumb: 'Parts' } },
   { path: 'reports', component: ReportsComponent, data: { breadcrumb: 'Reports' } },

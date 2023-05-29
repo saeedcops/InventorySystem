@@ -32,12 +32,22 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ItemTypesComponent } from './item-types/item-types.component';
+import { CustomersComponent } from './customers/customers.component';
+import { BrandsComponent } from './brands/brands.component';
+import { EngineersComponent } from './engineers/engineers.component';
+import { ItemTypesAddEditComponent } from './item-types/item-types-add-edit/item-types-add-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ItemsComponent,
-    ItemAddEditComponent
+    ItemAddEditComponent,
+    ItemTypesAddEditComponent,
+    ItemTypesComponent,
+    CustomersComponent,
+    BrandsComponent,
+    EngineersComponent
   ],
   imports: [
     BrowserModule,

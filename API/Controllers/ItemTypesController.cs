@@ -18,14 +18,14 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<ItemType>> Create([FromForm] CreateItemTypeCommand command)
+        public async Task<ActionResult<ItemType>> Create([FromBody] CreateItemTypeCommand command)
         {
           
             return await Mediator.Send(command);
         }
 
         [HttpPost("Update")]
-        public async Task<ActionResult<ItemType>> Update([FromForm] UpdateItemTypesCommand command)
+        public async Task<ActionResult<ItemType>> Update([FromBody] UpdateItemTypesCommand command)
         {
 
             return await Mediator.Send(command);

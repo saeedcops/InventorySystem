@@ -16,6 +16,7 @@
     <None Remove="client-app\src\app\home\home.service.ts" />
     <None Remove="client-app\src\app\item-types\item-types.service.ts" />
     <None Remove="client-app\src\app\items\item.service.ts" />
+    <None Remove="client-app\src\app\orders\orders.service.ts" />
     <None Remove="client-app\src\app\shared\models\brand.ts" />
     <None Remove="client-app\src\app\shared\models\customer.ts" />
     <None Remove="client-app\src\app\shared\models\engineer.ts" />
@@ -54,6 +55,9 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="client-app\src\app\items\item.service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="client-app\src\app\orders\orders.service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="client-app\src\app\shared\models\brand.ts" />

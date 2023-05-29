@@ -1,4 +1,6 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
+using Application.Common.Models;
 using Domain.Entities;
 using Domain.Enum;
 using MediatR;
@@ -17,8 +19,7 @@ namespace Application.Orders.Commands
         public int CustomerId { get; set; }
         public int EngineerId { get; set; }
         public int OrderType { get; set; }
-        public List<string>? OrderItemsPartNumber { get; set; }
-        public List<string>? OrderPartsPartNumber { get; set; }
+        public List<OrderItem> OrderItemsPartNumber { get; set; }
         public byte[]? Document { get; set; }
     }
 
@@ -34,39 +35,45 @@ namespace Application.Orders.Commands
         public async Task<Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var items = new List<Item>();
-            var Parts = new List<Part>();
             if (request.OrderItemsPartNumber != null)
                 foreach (var serial in request.OrderItemsPartNumber)
                 {
-                    var item = await _context.Items.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial));
-                    item.EngneerId = request.EngineerId;
-                    item.Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId);
-                    item.CustomerId = request.CustomerId;
-                    item.ItemStatus = (ItemStatus)request.OrderType;
-                     items.Add(item);
+                    
+                    var count = _context.Items
+                        .Where(x => x.ItemStatus == ItemStatus.stored && x.PartNumber.Equals(serial.PartNumber))
+                        .Count();
+
+                    if (count < serial.Count)
+                    {
+                        throw new NotFoundException($"The avalaible item of :{serial.PartNumber} is just {count}");
+                    }
+
+                    var itemsList = await _context.Items
+                       .Where(x => x.ItemStatus == ItemStatus.stored && x.PartNumber.Equals(serial.PartNumber))
+                       .Take(serial.Count).ToListAsync();
+
+                    foreach (var item in itemsList)
+                    {
+                        item.EngneerId = request.EngineerId;
+                        item.Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId);
+                        item.CustomerId = request.CustomerId;
+                        item.ItemStatus = request.OrderType == 0 ? ItemStatus.Sold : ItemStatus.Borrowed;
+                        items.Add(item);
+                    }
+
+                    
                 }
 
-            if(request.OrderPartsPartNumber != null)
-                foreach (var serial in request.OrderPartsPartNumber)
-                {
-                    var part = await _context.Parts.FirstOrDefaultAsync(x => x.PartNumber.Equals(serial));
-                    part.EngneerId = request.EngineerId;
-                    part.Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId);
-                    part.CustomerId = request.CustomerId;
-                    part.PartStatus = (ItemStatus)request.OrderType;
-                    Parts.Add(part);
-                }
 
             var entity = new Order
             {
-               // Customer = _context.Customers.FirstOrDefault(b => b.Id == request.CustomerId),
+                Customer = _context.Customers.FirstOrDefault(b => b.Id == request.CustomerId),
                 CustomerId = request.CustomerId,
-               // Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId),
+                Engineer = _context.Engineers.FirstOrDefault(b => b.Id == request.EngineerId),
                 EngineerId = request.EngineerId,
                 OrderType =(OrderType) request.OrderType,
                 Document = request.Document,
                 OrderItems = items,
-                OrderParts = Parts,
             };
 
             entity = _context.Orders.Add(entity).Entity;

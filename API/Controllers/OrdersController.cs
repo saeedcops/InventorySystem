@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Order>> Create([FromForm] CreateOrderCommand command)
+        public async Task<ActionResult<Order>> Create([FromBody] CreateOrderCommand command)
         {
           
             return await Mediator.Send(command);

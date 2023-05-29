@@ -43,6 +43,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDialogModule,
     MatSidenavModule,
     MatDividerModule,
+    
   ],
   exports: [
     //PaginationModule,

@@ -1,1 +1,41 @@
-<p>orders works!</p>
+<div>
+  <div>
+    <h2>Reactive forms</h2>
+  </div>
+  <div>
+    <form [formGroup]="reactform" (ngSubmit)="ProceedSave()">
+      <mat-form-field appearance="fill">
+        <mat-label>customerId</mat-label>
+        <input matInput type="number" formControlName="customerId">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>engineerId</mat-label>
+        <input matInput type="number"  formControlName="engineerId">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>orderType</mat-label>
+        <input matInput type="number"  formControlName="orderType">
+      </mat-form-field>
+
+      <table formArrayName="orderItemsPartNumber">
+        <tbody>
+          <tr *ngFor="let item of deladdress.controls;let i=index" [formGroupName]="i">
+            <td><input placeholder="partNumber" formControlName="partNumber"></td>
+            <td><input placeholder="count" type="number" formControlName="count"></td>
+            <td><button mat-button color="accent" (click)="Removeitem(i)">(-)</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>
+        <a mat-raised-button color="primary" (click)="Addnewrow()">Add New (+)</a>
+      </div>
+
+      <div class="example-button-row" style="margin-top: 5px">
+        <button mat-raised-button color="primary">Submit</button> |
+        <button mat-raised-button color="accent">Clear</button>
+      </div>
+    </form>
+  </div>
+</div>

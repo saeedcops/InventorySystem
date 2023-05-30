@@ -37,6 +37,7 @@ namespace Infrastructure.Identity
         public async Task<TokenResponse> LoginAsync(TokenRequest loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            
             if (user == null)
             {
                 return null;
@@ -129,6 +130,16 @@ namespace Infrastructure.Identity
             return result.ToApplicationResult();
         }
 
-      
+        public async Task<List<UserDto>> GetUsersRoleAsync()
+        {
+            return await _userManager.Users.Select(c => new UserDto()
+                    {
+                        Username = c.UserName,
+                        Role = string.Join(",", _userManager.GetRolesAsync(c).Result.ToArray())
+                    }).ToListAsync();
+             
+        }
+
+        
     }
 }

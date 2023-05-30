@@ -5,10 +5,10 @@ using System.Data;
 
 namespace Application.Accounts.Commands
 {
-    [Authorize(Roles = "Administrator")]
+    //[Authorize(Roles = "Admin")]
     public record RevokeAccessCommand : IRequest<bool>
     {
-        public string Email { get; set; }
+        public string Username { get; set; }
         public string Role { get; set; }
     }
 
@@ -25,7 +25,7 @@ namespace Application.Accounts.Commands
         public async Task<bool> Handle(RevokeAccessCommand request, CancellationToken cancellationToken)
         {
 
-            return await _context.RevokeAuthorizeAsync(request.Email, request.Role);
+            return await _context.RevokeAuthorizeAsync(request.Username, request.Role);
         }
     }
 }

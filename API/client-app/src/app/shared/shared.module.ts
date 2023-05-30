@@ -18,6 +18,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from '../app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -35,14 +49,37 @@ import { MatDividerModule } from '@angular/material/divider';
     //CarouselModule.forRoot(),
     //BsDropdownModule.forRoot(),
     ReactiveFormsModule,
-    CdkStepperModule,
-    RouterModule,
+    //CdkStepperModule,
+    //RouterModule,
+    //MatToolbarModule,
+    //MatIconModule,
+    //MatButtonModule,
+    //MatDialogModule,
+    //MatSidenavModule,
+    //MatDividerModule,
+
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSidenavModule,
+    MatSortModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    RouterModule,
     
   ],
   exports: [
@@ -54,15 +91,38 @@ import { MatDividerModule } from '@angular/material/divider';
     ReactiveFormsModule,
     //BsDropdownModule,
     //TextInputComponent,
-    CdkStepperModule,
+    //CdkStepperModule,
+    //MatToolbarModule,
+    //MatIconModule,
+    //MatButtonModule,
+    //MatDialogModule,
+    //MatSidenavModule,
+    //MatDividerModule,
+    //StepperComponent,
+    //BasketSummaryComponent
+
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatSelectModule,
+    ReactiveFormsModule,
     MatDividerModule,
-    //StepperComponent,
-    //BasketSummaryComponent
+    MatTableModule,
+    MatPaginatorModule,
+    MatSidenavModule,
+    MatSortModule,
+    MatSnackBarModule,
+    HttpClientModule,
+    RouterModule,
   ]
 })
 export class SharedModule { }

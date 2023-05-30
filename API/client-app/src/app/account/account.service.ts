@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, of, ReplaySubject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { IUser } from '../shared/models/user';
+import { IUser, IUserRole } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,35 @@ export class AccountService {
 
   user$ = this.userSource.asObservable();
 
+  private role = new ReplaySubject<string[]>();
+  role$ = this.role.asObservable();
+
   constructor(private http: HttpClient, private router: Router) { }
 
-  //getCurrentUserValue() {
+  getRoles() {
+    return this.http.get<string[]>(this.baseUrl + 'Accounts/Roles').subscribe(res => {
+      this.role.next(res);
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
+  }
 
-  //  return this.userSource.value;
-  //}
+  getUsersWithRoles() {
+    return this.http.get<IUserRole>(this.baseUrl + 'Accounts/UsersRole');
+  }
+  athorizeUser(data: any) {
+    return this.http.post(this.baseUrl + 'Accounts/Authorize', data);
+  }
 
+  revokeUser(data: any) {
+    return this.http.post(this.baseUrl + 'Accounts/Revoke', data);
+  }
+
+  register(values: any) {
+
+    return this.http.post(this.baseUrl + 'Accounts/Register', values);
+  }
 
   loadCurrentUser(token: string) {
     if (token === null) {
@@ -53,19 +75,7 @@ export class AccountService {
       );
   }
 
-  register(values: any) {
 
-    return this.http.post(this.baseUrl + 'accounts/register', values)
-      .pipe(
-        map((user: any) => {
-          if (user) {
-            localStorage.setItem('token', user.token);
-            this.userSource.next(user);
-
-          }
-        })
-      );
-  }
 
   logout() {
     localStorage.removeItem('token');

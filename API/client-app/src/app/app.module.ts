@@ -38,6 +38,9 @@ import { BrandsComponent } from './brands/brands.component';
 import { EngineersComponent } from './engineers/engineers.component';
 import { ItemTypesAddEditComponent } from './item-types/item-types-add-edit/item-types-add-edit.component';
 import { OrdersComponent } from './orders/orders.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { WarehouseAddEditComponent } from './warehouse/warehouse-add-edit/warehouse-add-edit.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -49,35 +52,38 @@ import { OrdersComponent } from './orders/orders.component';
     CustomersComponent,
     BrandsComponent,
     EngineersComponent,
-    OrdersComponent
+    OrdersComponent,
+    WarehouseComponent,
+    WarehouseAddEditComponent
     
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatDividerModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSidenavModule,
-    MatSortModule,
-    MatSnackBarModule,
-    HttpClientModule,
-    RouterModule,
+    //BrowserModule,
+    //AppRoutingModule,
+    //BrowserAnimationsModule,
+    //MatToolbarModule,
+    //MatIconModule,
+    //MatButtonModule,
+    //MatDialogModule,
+    //MatFormFieldModule,
+    //MatInputModule,
+    //MatDatepickerModule,
+    //MatNativeDateModule,
+    //MatRadioModule,
+    //MatSelectModule,
+    //ReactiveFormsModule,
+    //MatDividerModule,
+    //MatTableModule,
+    //MatPaginatorModule,
+    //MatSidenavModule,
+    //MatSortModule,
+    //MatSnackBarModule,
+    //HttpClientModule,
+    //RouterModule,
     AccountModule,
     CoreModule,
     HomeModule,
+    SharedModule
     
    // BreadcrumbModule
   ],

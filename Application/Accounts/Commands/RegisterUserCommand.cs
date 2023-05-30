@@ -6,10 +6,10 @@ using System.Data;
 
 namespace Application.Accounts.Commands
 {
-    [Authorize(Roles = "Administrator")]
+   // [Authorize(Roles = "Admin")]
     public record RegisterUserCommand : IRequest<Result>
     {
-        public string Email { get; set; }
+        public string Username { get; set; }
         public string Password { get; set; }
     }
 
@@ -29,7 +29,7 @@ namespace Application.Accounts.Commands
             var user = await _context.RegisterAsync(
                 new TokenRequest
                 {
-                    Email = request.Email,
+                    Email = request.Username,
                     Password = request.Password,
                 });
 

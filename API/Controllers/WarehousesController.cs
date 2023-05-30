@@ -18,7 +18,7 @@ namespace API.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Warehouse>> Create([FromForm] CreateWarehouseCommand command)
+        public async Task<ActionResult<Warehouse>> Create([FromBody] CreateWarehouseCommand command)
         {
           
             return await Mediator.Send(command);
@@ -26,7 +26,7 @@ namespace API.Controllers
 
 
         [HttpPost("Update")]
-        public async Task<ActionResult<Warehouse>> Update([FromForm] UpdateWarehouseCommand command)
+        public async Task<ActionResult<Warehouse>> Update([FromBody] UpdateWarehouseCommand command)
         {
 
             return await Mediator.Send(command);

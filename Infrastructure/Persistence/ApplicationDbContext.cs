@@ -28,6 +28,8 @@ namespace Infrastructure.Persistence
             _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
         }
 
+        //public DbSet<Rol> Users => Set<IdentityUser>();
+        public DbSet<IdentityUser> Users => Set<IdentityUser>();
         public DbSet<Brand> Brands => Set<Brand>();
         public DbSet<Part> Parts => Set<Part>();
 

@@ -20,22 +20,36 @@ namespace API.Controllers
         }
 
 
+        [HttpGet("Roles")]
+        public async Task<ActionResult<List<string>>> GetRoles([FromQuery] GetRolesQuery command)
+        {
+
+            return await Mediator.Send(command);
+        }
+
+        [HttpGet("UsersRole")]
+        public async Task<ActionResult<List<UserDto>>> GetUsersRole([FromQuery] GetUsersQuery command)
+        {
+
+            return await Mediator.Send(command);
+        }
+
         [HttpPost("Register")]
-        public async Task<ActionResult<Result>> Register([FromForm] RegisterUserCommand command)
+        public async Task<ActionResult<Result>> Register([FromBody] RegisterUserCommand command)
         {
           
             return await Mediator.Send(command);
         }
 
         [HttpPost("Authorize")]
-        public async Task<ActionResult<bool>> Authorize([FromForm] GrantAccessCommand command)
+        public async Task<ActionResult<bool>> Authorize([FromBody] GrantAccessCommand command)
         {
 
             return await Mediator.Send(command);
         }
 
         [HttpPost("Revoke")]
-        public async Task<ActionResult<bool>> Revoke([FromForm] RevokeAccessCommand command)
+        public async Task<ActionResult<bool>> Revoke([FromBody] RevokeAccessCommand command)
         {
 
             return await Mediator.Send(command);

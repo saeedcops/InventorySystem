@@ -5,10 +5,10 @@ using MediatR;
 
 namespace Application.Accounts.Commands
 {
-    [Authorize(Roles ="Administrator")]
+   // [Authorize(Roles ="Admin")]
     public record GrantAccessCommand : IRequest<bool>
     {
-        public string Email { get; set; }
+        public string Username { get; set; }
         public string Role { get; set; }
     }
 
@@ -25,7 +25,7 @@ namespace Application.Accounts.Commands
         public async Task<bool> Handle(GrantAccessCommand request, CancellationToken cancellationToken)
         {
 
-            return await _context.AuthorizeAsync(request.Email, request.Role);
+            return await _context.AuthorizeAsync(request.Username, request.Role);
         }
     }
 }

@@ -3,3 +3,8 @@ export interface IUser {
   role: string;
   token: string;
 }
+
+export interface IUserRole {
+  username: string;
+  role: string;
+}
